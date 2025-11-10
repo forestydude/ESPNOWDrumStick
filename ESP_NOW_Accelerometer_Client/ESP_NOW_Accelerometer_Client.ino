@@ -142,7 +142,7 @@ void loop() {
   if (gravityComponentMin < -gravityComponentThreshold && componentBuffer[lastbufferIndex] == gravityComponentMin && gravityComponent > componentBuffer[lastbufferIndex] && netVelocityY < -0.1 && allowStrike) {
     MIDIData.id = 10;
     MIDIData.note = 56;
-    MIDIData.velocity = abs(map(gravityComponentMin, 0, 64, 1, 127));
+    MIDIData.velocity = min(map(abs(gravityComponentMin), 0, 800, 1, 127));
     esp_now_send(broadcastAddress, (uint8_t *) &MIDIData, sizeof(MIDIData));
     //Prevents multiple strikes. A long sweeping strike can cause multiple hits due to deceleration
     allowStrike = 0;
